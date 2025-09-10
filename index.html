@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BASE • Cosmic Archive</title>
+  <meta name="color-scheme" content="dark light" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">BASE • COSMIC ARCHIVE</div>
+
+    <div class="header-actions">
+      <button id="notesBtn" class="iconbtn" aria-label="Notizen öffnen" aria-expanded="false" aria-controls="notesPanel">🗒</button>
+      <button id="menuBtn" class="hamburger" aria-label="Werkzeuge öffnen" aria-expanded="false" aria-controls="menuPanel">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Werkzeuge (Hamburger) -->
+    <aside id="menuPanel" class="menu" aria-hidden="true">
+      <div class="menu-head">
+        <h2>Werkzeuge</h2>
+        <button id="menuClose" class="close" aria-label="Werkzeuge schließen">×</button>
+      </div>
+      <form id="seedForm" class="seedbar" autocomplete="off">
+        <label for="seedInput">Seed</label>
+        <input id="seedInput" type="text" placeholder="z. B. WHALE" />
+        <label for="packInput">Packs</label>
+        <input id="packInput" type="text" placeholder="flesh,sea,cathedral,radio,factory" />
+        <label class="row">
+          <input id="quietToggle" type="checkbox" />
+          <span>Quiet Mode (Badges aus)</span>
+        </label>
+        <div class="row gap">
+          <button type="submit" class="ghost">Set</button>
+          <button id="remix" type="button" class="ghost">Remix</button>
+        </div>
+        <p class="hint">Seed macht Ausgaben reproduzierbar. Packs per Komma auswählen.</p>
+      </form>
+    </aside>
+    <div id="overlay" class="overlay" hidden></div>
+
+    <!-- Notizbuch -->
+    <aside id="notesPanel" class="notes" aria-hidden="true">
+      <div class="notes-head">
+        <h2>Notes</h2>
+        <button id="notesClose" class="close" aria-label="Notizen schließen">×</button>
+      </div>
+
+      <div class="notes-meta">
+        <div class="notes-entity">
+          <div class="entity-sketch" id="entitySketch" aria-hidden="true"></div>
+          <div>
+            <div><strong>Entity:</strong> <span id="entityKey">—</span></div>
+            <div><strong>Karte:</strong> <span id="entityCard">—</span></div>
+          </div>
+        </div>
+        <button id="attachEntity" class="ghost small">An aktuelle Karte anheften</button>
+      </div>
+
+      <div class="notes-editor">
+        <input id="noteTitle" type="text" placeholder="Titel (optional)" />
+        <textarea id="noteBody" rows="6" placeholder="Schreibe Notizen. @entity & #tag verlinken."></textarea>
+        <div class="row gap">
+          <button id="saveNote" class="ghost">Save</button>
+          <button id="clearEditor" class="ghost">Clear</button>
+        </div>
+      </div>
+
+      <div class="notes-list">
+        <h3>Notizen zu <span id="entityKeyLabel">—</span></h3>
+        <ul id="notesList"></ul>
+      </div>
+
+      <div class="notes-all">
+        <h3>Alle Entities</h3>
+        <ul id="entityList"></ul>
+      </div>
+    </aside>
+  </header>
+
+  <main class="stage">
+    <section class="card aging0" id="card" role="region" aria-live="polite" aria-label="Archivkarte">
+      <div class="card-head">
+        <div class="head-left">
+          <div class="card-id" id="cardId">A-0001</div>
+          <div class="stamp" id="stamp" aria-hidden="true">☐ INDEX</div>
+        </div>
+        <div class="badges" id="badges"></div>
+      </div>
+
+      <!-- Illustration-Post-it -->
+      <button class="illus-tab" id="illusTab" aria-expanded="false" aria-controls="illusPanel" hidden>
+        sketch
+      </button>
+      <div class="illus-panel" id="illusPanel" hidden>
+        <div class="illus-header">
+          <span>entity sketch</span>
+          <button id="illusClose" class="mini-close" aria-label="Skizze schließen">×</button>
+        </div>
+        <div class="illus-canvas" id="illusCanvas" aria-hidden="false"></div>
+      </div>
+
+      <h1 class="title" id="title">—</h1>
+      <p class="note" id="note1">—</p>
+      <p class="note" id="note2">—</p>
+      <div class="meta" id="meta">—</div>
+
+      <div class="inspect" id="inspect" hidden>
+        <div><strong>Code:</strong> <span id="inspCode">—</span></div>
+        <div><strong>Ort:</strong> <span id="inspPlace">—</span></div>
+        <div id="inspExtra">—</div>
+      </div>
+
+      <div class="hintbar" id="hintbar" hidden>another drawer fits</div>
+      <div class="scribble" id="scribble" aria-hidden="true">?</div>
+    </section>
+
+    <nav class="controls">
+      <button id="prev" title="Vorherige (←)">◀ Prev</button>
+      <button id="next" title="Nächste (→) / Space">Next ▶</button>
+      <button id="copy">Copy</button>
+      <button id="share">Share</button>
+      <button id="permalink">Permalink</button>
+    </nav>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden>Copied</div>
+</body>
+</html>
